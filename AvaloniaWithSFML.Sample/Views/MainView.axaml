@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaWithSFML.Sample.ViewModels"
+			 xmlns:SFML="clr-namespace:AvaloniaWithSFML;assembly=AvaloniaWithSFML"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaWithSFML.Sample.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <!--<vm:MainViewModel />-->
+  </Design.DataContext>
+
+	
+	
+	<Grid ColumnDefinitions="*">
+		<SFML:OpenGLControl Window="{Binding CurrentGame}"></SFML:OpenGLControl>
+		<!--<DockPanel LastChildFill="True">
+			<Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+				<TextBlock Foreground="Black">Dock = "Top"</TextBlock>
+			</Border>
+			<Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+				<TextBlock Foreground="Black">Dock = "Top"</TextBlock>
+			</Border>
+			<Border Height="25" Background="LemonChiffon" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
+				<TextBlock Foreground="Black">Dock = "Bottom"</TextBlock>
+			</Border>
+			<Border Width="200" Background="PaleGreen" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" ClipToBounds="True">
+				
+				<UniformGrid Rows="3" Columns="4">
+					<Rectangle Width="5" Height="5" Fill="#330000"/>
+					<Rectangle Width="5" Height="5" Fill="#660000"/>
+					<Rectangle Width="5" Height="5" Fill="#990000"/>
+					<Rectangle Width="5" Height="5" Fill="#CC0000"/>
+					<Rectangle Width="5" Height="5" Fill="#FF0000"/>
+					<Rectangle Width="5" Height="5" Fill="#FF3300"/>
+					
+				</UniformGrid>
+			</Border>
+			<Border BorderBrush="Black" BorderThickness="1" Background="Transparent">
+				<SFML:OpenGLControl Window="{Binding CurrentGame}"></SFML:OpenGLControl>
+			</Border>
+		</DockPanel>-->
+		
+	</Grid>
+
+</UserControl>
