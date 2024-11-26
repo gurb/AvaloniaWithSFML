@@ -25,32 +25,32 @@ namespace AvaloniaWithSFML
 
 
         string vertexShaderSource = @"#version 300 es
-precision mediump float;
-layout(location = 0) in vec3 aPosition;
-layout(location = 1) in vec2 aTexCoord;    
-out vec2 TexCoords;
+        precision mediump float;
+        layout(location = 0) in vec3 aPosition;
+        layout(location = 1) in vec2 aTexCoord;    
+        out vec2 TexCoords;
 
-void main(void)
-{
-    gl_Position = vec4(aPosition.xy, 0, 1.0);
-    TexCoords = aTexCoord;
-}
+        void main(void)
+        {
+            gl_Position = vec4(aPosition.xy, 0, 1.0);
+            TexCoords = aTexCoord;
+        }
         ";
         string fragmentShaderSource = @"#version 300 es
-precision mediump float;
-out vec4 outputColor;
+        precision mediump float;
+        out vec4 outputColor;
 
-uniform vec4 ourColor;
+        uniform vec4 ourColor;
 
-uniform sampler2D screenTexture;
+        uniform sampler2D screenTexture;
 
-in vec2 TexCoords;
+        in vec2 TexCoords;
 
-void main()
-{
-    vec4 texColor = texture(screenTexture, TexCoords);
-    outputColor = texColor;
-}";
+        void main()
+        {
+            vec4 texColor = texture(screenTexture, TexCoords);
+            outputColor = texColor;
+        }";
 
         private Shader _shader;
 
@@ -184,9 +184,6 @@ void main()
 
         private void ResizeOfTexture()
         {
-            //Texture newTexture = new Texture(_window.RenderWindow.Size.X, _window.RenderWindow.Size.Y);
-            //mainTextureID = (int)newTexture.NativeHandle;
-            //newTexture.Update(_window.RenderWindow);
             int mainTextureID = (int)renderTexture.Texture.NativeHandle;
             GL.BindTexture(TextureTarget.Texture2D, mainTextureID);
             var image = _window.GeneralRender.Texture.CopyToImage();
@@ -212,7 +209,7 @@ void main()
 
         private void OnLoad()
         {
-            renderTexture = new RenderTexture(640, 480)
+            renderTexture = new RenderTexture(_window.RenderWindow.Size.X, _window.RenderWindow.Size.Y)
             {
             };
             renderTexture.Clear(SFML.Graphics.Color.Cyan);
@@ -236,11 +233,7 @@ void main()
         protected override void OnOpenGlRender(GlInterface gl, int fb)
         {
             this.fb = fb;
-            PixelSize size = GetPixelSize();
-            //Set up the aspect ratio so shapes aren't stretched.
             GL.Viewport(0, 0, (int)Bounds.Width, (int)Bounds.Height);
-
-            ////Tell our subclass to render
 
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
@@ -249,9 +242,6 @@ void main()
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
             _window.OneFrame();
-            //Texture texture = new Texture(_window.RenderWindow.Size.X, _window.RenderWindow.Size.Y);
-            //texture.Update(_window.RenderWindow);
-            //Texture texture = _window.GeneralRender.Texture;
 
             OpenTK.Mathematics.Vector2 position = new OpenTK.Mathematics.Vector2(400, 300);
             OpenTK.Mathematics.Vector2 scale = new OpenTK.Mathematics.Vector2(150, 100);
@@ -264,10 +254,6 @@ void main()
 
             // Bind the shader
             _shader.UseProgram();
-            
-
-            //renderTexture.Clear(new SFML.Graphics.Color((byte)new Random().Next(255), (byte)new Random().Next(255), (byte)new Random().Next(255)));
-            //renderTexture.Display();
 
             int mainTextureID = (int)renderTexture.Texture.NativeHandle;
             var image = _window.GeneralRender.Texture.CopyToImage();
@@ -278,8 +264,8 @@ void main()
                 0,
                 0,
                 0,
-                (int)_window.GeneralRender.Texture.Size.X,   // Texture genişliği
-                (int)_window.GeneralRender.Texture.Size.Y,   // Texture yüksekliği
+                (int)_window.GeneralRender.Texture.Size.X,   
+                (int)_window.GeneralRender.Texture.Size.Y,
                 OpenTK.Graphics.OpenGL4.PixelFormat.Rgba,
                 PixelType.UnsignedByte,
                 image.Pixels
@@ -287,8 +273,6 @@ void main()
            
             GL.BindVertexArray(vao);
 
-
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
             Dispatcher.UIThread.Post(RequestNextFrameRendering, DispatcherPriority.Background);
         }
@@ -300,13 +284,6 @@ void main()
             {
                 Console.WriteLine($"OpenGL Error after {operation}: {error}");
             }
-        }
-
-        private PixelSize GetPixelSize()
-        {
-            var scaling = TopLevel.GetTopLevel(this).RenderScaling;
-            return new PixelSize(Math.Max(1, (int)(Bounds.Width * scaling)),
-                Math.Max(1, (int)(Bounds.Height * scaling)));
         }
     }   
 }

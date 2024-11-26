@@ -6,6 +6,8 @@ namespace AvaloniaWithSFML
 {
     public class BaseGame
     {
+        uint Width, Height;
+
         //RenderWindow? renderWindow { get; set; }
         RenderWindow? renderWindow { get; set; }
         RenderTexture? GeneralRenderTexture { get; set; }
@@ -27,16 +29,19 @@ namespace AvaloniaWithSFML
             ClearColor = clearColor;
         }
 
-        public BaseGame(Avalonia.Controls.Window aWindow, ContextSettings contextSettings)
+        public BaseGame(Avalonia.Controls.Window aWindow, ContextSettings contextSettings, uint width, uint height)
         {
             if (aWindow is Avalonia.Controls.Window { PlatformImpl: { } } window &&
                 window.TryGetPlatformHandle()?.Handle is IntPtr handle)
             {
                 renderWindow = new SFML.Graphics.RenderWindow(handle, new ContextSettings { AntialiasingLevel = 16 });
-                renderWindow.Size = new SFML.System.Vector2u(640, 480);
+                renderWindow.Size = new SFML.System.Vector2u(width, height);
                 renderWindow.SetFramerateLimit(60);
 
-                GeneralRenderTexture = new RenderTexture(640, 480);
+                this.Width = width;
+                this.Height = height;
+
+                GeneralRenderTexture = new RenderTexture(width, height);
                 GeneralRenderTexture.Clear(SFML.Graphics.Color.Yellow);
                 GeneralRenderTexture.Display();
             }

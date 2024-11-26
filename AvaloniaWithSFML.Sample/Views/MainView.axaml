@@ -14,7 +14,7 @@
   </Design.DataContext>
 	<Grid ColumnDefinitions="*">
 		<SFML:SFMLControl Window="{Binding CurrentGame}"></SFML:SFMLControl>
-		<DockPanel LastChildFill="True" Opacity="0.4">
+		<DockPanel LastChildFill="True" Opacity="0.8">
 			<Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
 				<TextBlock Foreground="Black">Dock = "Top"</TextBlock>
 			</Border>
@@ -24,17 +24,13 @@
 			<Border Height="25" Background="LemonChiffon" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
 				<TextBlock Foreground="Black">Dock = "Bottom"</TextBlock>
 			</Border>
-			<Border Width="200" Background="PaleGreen" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" ClipToBounds="True">
+			<Border Width="200" Background="PaleGreen" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" ClipToBounds="True" Padding="5">
 				
-				<UniformGrid Rows="3" Columns="4">
-					<Rectangle Width="5" Height="5" Fill="#330000"/>
-					<Rectangle Width="5" Height="5" Fill="#660000"/>
-					<Rectangle Width="5" Height="5" Fill="#990000"/>
-					<Rectangle Width="5" Height="5" Fill="#CC0000"/>
-					<Rectangle Width="5" Height="5" Fill="#FF0000"/>
-					<Rectangle Width="5" Height="5" Fill="#FF3300"/>
-					
-				</UniformGrid>
+				<StackPanel HorizontalAlignment="Stretch">
+					<TextBlock Text="{Binding #slider.Value, StringFormat='Selected Value: {0:F1}'}"
+              HorizontalAlignment="Center"/>
+					<Slider HorizontalAlignment="Stretch" Maximum="2" x:Name="slider" Minimum="0" Value="{Binding Zoom, StringFormat=F1}" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+				</StackPanel>
 			</Border>
 			<Border BorderBrush="Black" BorderThickness="1" Background="Transparent">
 				
