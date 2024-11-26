@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.OpenGL;
 using Avalonia.OpenGL.Controls;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using SFML.Graphics;
@@ -22,7 +21,6 @@ namespace AvaloniaWithSFML
             (o, v) => o.Window = v);
         private BaseGame? _window;
         private bool _isInitialized;
-
 
         string vertexShaderSource = @"#version 300 es
         precision mediump float;
@@ -68,12 +66,10 @@ namespace AvaloniaWithSFML
                 }
             }
         }
-
         public SFMLControl()
         {
             Focusable = true;
         }
-
         private void Initialize()
         {
             OnLoad();
@@ -111,12 +107,11 @@ namespace AvaloniaWithSFML
 
         private readonly float[] _vertices =
         {
-             -1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-             1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
-             1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
-            -1.0f,  1.0f, 0.0f,  0.0f, 1.0f
+             -1.0f,  -1.0f,   0.0f,  0.0f,  0.0f,
+              1.0f,  -1.0f,   0.0f,  1.0f,  0.0f,
+              1.0f,   1.0f,   0.0f,  1.0f,  1.0f,
+             -1.0f,   1.0f,   0.0f,  0.0f,  1.0f
         };
-
 
         protected override void OnSizeChanged(SizeChangedEventArgs e)
         {
@@ -206,7 +201,6 @@ namespace AvaloniaWithSFML
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
             GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
         }
-
         private void OnLoad()
         {
             renderTexture = new RenderTexture(_window.RenderWindow.Size.X, _window.RenderWindow.Size.Y)

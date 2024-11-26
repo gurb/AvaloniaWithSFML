@@ -75,15 +75,13 @@ namespace AvaloniaWithSFML.Sample.ViewModels
 
             for (int i = 0; i < shapes.Length; i++)
             {
-                // Rastgele boyutlar
                 float S_width = new Random().Next(10, 50);
                 float S_height = new Random().Next(10, 50);
 
-                // RectangleShape oluştur
                 RectangleShape shape = new RectangleShape(new Vector2f(S_width, S_height))
                 {
                     FillColor = new Color((byte)new Random().Next(256), (byte)new Random().Next(256), (byte)new Random().Next(256)),
-                    Position = new Vector2f(new Random().Next((int)640), new Random().Next((int)480))
+                    Position = new Vector2f(new Random().Next((int)width), new Random().Next((int)height))
                 };
 
                 shapes[i] = shape;
@@ -108,14 +106,12 @@ namespace AvaloniaWithSFML.Sample.ViewModels
                 selectionRectangle.Size = new Vector2f(0, 0);
             }
         }
-
         private void RenderWindow_Resized(object? sender, SizeEventArgs e)
         {
             Width = e.Width;
             Height = e.Height;
             
         }
-
         bool IsMouseOver(FloatRect rect, Vector2f mousePosition)
         {
             return mousePosition.X > rect.Left &&
@@ -123,7 +119,6 @@ namespace AvaloniaWithSFML.Sample.ViewModels
                    mousePosition.Y > rect.Top &&
                    mousePosition.Y < rect.Top + rect.Height;
         }
-
         public void ChangeZoom(float zoom)
         {
             gameView.Reset(new FloatRect(0, 0, 1024, 720));
@@ -131,7 +126,6 @@ namespace AvaloniaWithSFML.Sample.ViewModels
             GeneralRender.SetView(gameView);
             _zoom = zoom;
         }
-
         public override void Update()
         {
             if (RenderWindow is not null)
@@ -140,10 +134,6 @@ namespace AvaloniaWithSFML.Sample.ViewModels
                 GeneralRender.SetView(gameView);
                 Vector2i mousePosition = Mouse.GetPosition(RenderWindow);
                 Vector2f mouseWorldPosition = GeneralRender.MapPixelToCoords(mousePosition);
-                //Trace.WriteLine(mouseWorldPosition);
-
-                var test = rectangle.GetGlobalBounds();
-                //Trace.WriteLine(test);
 
                 if (IsMouseOver(rectangle.GetGlobalBounds(), mouseWorldPosition))
                 {
@@ -164,7 +154,7 @@ namespace AvaloniaWithSFML.Sample.ViewModels
             else
             {
                 rectangle.Position = new Vector2f(rectangle.Position.X, rectangle.Position.Y + speed * deltaTime);
-                if (rectangle.Position.Y >= 480 - rectangle.Size.Y) movingUp = true; 
+                if (rectangle.Position.Y >= Height - rectangle.Size.Y) movingUp = true; 
             }
 
             base.Update();
@@ -172,7 +162,6 @@ namespace AvaloniaWithSFML.Sample.ViewModels
 
         public override void Draw()
         {
-
             foreach(var shape in shapes)
             {
                 GeneralRender.Draw(shape);
@@ -187,6 +176,5 @@ namespace AvaloniaWithSFML.Sample.ViewModels
 
             base.Draw();
         }
-
     }
 }
