@@ -16,9 +16,5 @@ public class MainViewModel : ViewModelBase
         {
             CurrentGame = new SFMLGame((Avalonia.Controls.Window)root, new ContextSettings { AntialiasingLevel = 8 });
         }
-        //if (root is Avalonia.Controls.Window)
-        //{
-        //    TestGame = new SFMLGame((Avalonia.Controls.Window)root, new ContextSettings { AntialiasingLevel = 8 });
-        //}
     }
 }

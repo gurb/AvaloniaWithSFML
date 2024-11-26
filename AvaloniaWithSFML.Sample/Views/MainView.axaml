@@ -12,12 +12,9 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <!--<vm:MainViewModel />-->
   </Design.DataContext>
-
-	
-	
 	<Grid ColumnDefinitions="*">
-		<SFML:OpenGLControl Window="{Binding CurrentGame}"></SFML:OpenGLControl>
-		<!--<DockPanel LastChildFill="True">
+		<SFML:SFMLControl Window="{Binding CurrentGame}"></SFML:SFMLControl>
+		<DockPanel LastChildFill="True" Opacity="0.4">
 			<Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
 				<TextBlock Foreground="Black">Dock = "Top"</TextBlock>
 			</Border>
@@ -40,9 +37,9 @@
 				</UniformGrid>
 			</Border>
 			<Border BorderBrush="Black" BorderThickness="1" Background="Transparent">
-				<SFML:OpenGLControl Window="{Binding CurrentGame}"></SFML:OpenGLControl>
+				
 			</Border>
-		</DockPanel>-->
+		</DockPanel>
 		
 	</Grid>
 
