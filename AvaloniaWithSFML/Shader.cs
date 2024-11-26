@@ -4,6 +4,7 @@ using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,5 +89,20 @@ namespace AvaloniaWithSFML
         {
             GL.UseProgram(shaderProgram);
         }
+
+        public void SetMat4x4(string uniformName, Matrix4x4 mat)
+        {
+            float[] matArray = new float[]
+            {
+                mat.M11, mat.M12, mat.M13, mat.M14,
+                mat.M21, mat.M22, mat.M23, mat.M24,
+                mat.M31, mat.M32, mat.M33, mat.M34,
+                mat.M41, mat.M42, mat.M43, mat.M44
+            };
+
+            int location = GL.GetUniformLocation(shaderProgram, uniformName);
+            GL.UniformMatrix4(shaderProgram, location, false, matArray);
+        }
+
     }
 }

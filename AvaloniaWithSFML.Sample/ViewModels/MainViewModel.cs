@@ -1,7 +1,4 @@
-﻿using Avalonia.Controls;
-using Avalonia.VisualTree;
-using DynamicData;
-using SFML.Graphics;
+﻿using Avalonia.VisualTree;
 using SFML.Window;
 
 namespace AvaloniaWithSFML.Sample.ViewModels;
@@ -24,6 +21,4 @@ public class MainViewModel : ViewModelBase
         //    TestGame = new SFMLGame((Avalonia.Controls.Window)root, new ContextSettings { AntialiasingLevel = 8 });
         //}
     }
-
-    public string Greeting => "Welcome to Avalonia!";
 }

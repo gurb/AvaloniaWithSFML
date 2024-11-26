@@ -7,6 +7,7 @@ using Avalonia.VisualTree;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using SFML.Graphics;
+using System.Numerics;
 using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
 using PrimitiveType = OpenTK.Graphics.OpenGL4.PrimitiveType;
 
@@ -22,14 +23,16 @@ namespace AvaloniaWithSFML
         private BaseGame? _window;
         private bool _isInitialized;
 
+
         string vertexShaderSource = @"#version 300 es
 precision mediump float;
 layout(location = 0) in vec3 aPosition;
 layout(location = 1) in vec2 aTexCoord;    
 out vec2 TexCoords;
+
 void main(void)
 {
-    gl_Position = vec4(aPosition, 1.0);
+    gl_Position = vec4(aPosition.xy, 0, 1.0);
     TexCoords = aTexCoord;
 }
         ";
@@ -206,6 +209,9 @@ void main()
             //newTexture.Update(_window.RenderWindow);
             int mainTextureID = (int)renderTexture.Texture.NativeHandle;
             GL.BindTexture(TextureTarget.Texture2D, mainTextureID);
+            var image = _window.GeneralRender.Texture.CopyToImage();
+            image.FlipVertically();
+            _window.GeneralRender.Texture.CopyToImage().FlipVertically();
             GL.TexSubImage2D(
                     TextureTarget.Texture2D,
                     0,
@@ -215,7 +221,7 @@ void main()
                     0,
                     OpenTK.Graphics.OpenGL4.PixelFormat.Rgba,
                     PixelType.UnsignedByte,
-                    _window.GeneralRender.Texture.CopyToImage().Pixels
+                    image.Pixels
             );
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
@@ -267,6 +273,15 @@ void main()
             //texture.Update(_window.RenderWindow);
             //Texture texture = _window.GeneralRender.Texture;
 
+            OpenTK.Mathematics.Vector2 position = new OpenTK.Mathematics.Vector2(400, 300);
+            OpenTK.Mathematics.Vector2 scale = new OpenTK.Mathematics.Vector2(150, 100);
+            float rotation = MathF.PI / 4f;
+            Matrix4x4 trans = Matrix4x4.CreateTranslation(position.X, position.Y, 0);
+            Matrix4x4 sca = Matrix4x4.CreateScale(scale.X, scale.Y, 1);
+            Matrix4x4 rot = Matrix4x4.CreateRotationZ(rotation);
+
+            _shader.SetMat4x4("model", sca * rot * trans);
+
             // Bind the shader
             _shader.UseProgram();
             
@@ -275,6 +290,8 @@ void main()
             //renderTexture.Display();
 
             int mainTextureID = (int)renderTexture.Texture.NativeHandle;
+            var image = _window.GeneralRender.Texture.CopyToImage();
+            image.FlipVertically();
             GL.BindTexture(TextureTarget.Texture2D, mainTextureID);
             GL.TexSubImage2D(
                 TextureTarget.Texture2D,
@@ -285,7 +302,7 @@ void main()
                 (int)_window.GeneralRender.Texture.Size.Y,   // Texture yüksekliği
                 OpenTK.Graphics.OpenGL4.PixelFormat.Rgba,
                 PixelType.UnsignedByte,
-                _window.GeneralRender.Texture.CopyToImage().Pixels
+                image.Pixels
             );
            
             GL.BindVertexArray(vao);

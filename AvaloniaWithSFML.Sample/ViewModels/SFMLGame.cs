@@ -100,38 +100,35 @@ namespace AvaloniaWithSFML.Sample.ViewModels
         {
             if (RenderWindow is not null)
             {
-                GeneralRender.SetView(new View(new FloatRect(0, 0, Width, Height)));
+                //GeneralRender.SetView(new View(new FloatRect(0, 0, Width, Height)));
                 Vector2i mousePosition = Mouse.GetPosition(RenderWindow);
                 Vector2f mouseWorldPosition = GeneralRender.MapPixelToCoords(mousePosition);
                 Trace.WriteLine(mouseWorldPosition);
 
                 var test = rectangle.GetGlobalBounds();
                 Trace.WriteLine(test);
+
                 if (IsMouseOver(rectangle.GetGlobalBounds(), mouseWorldPosition))
                 {
-                    rectangle.FillColor = Color.Green; // Change color if mouse is over the rectangle
+                    rectangle.FillColor = Color.Green;
                 }
                 else
                 {
-                    rectangle.FillColor = Color.Red; // Default color
+                    rectangle.FillColor = Color.Red; 
                 }
             }
             //GeneralRender.SetView(new View(new FloatRect(0, 0, Width, Height)));
             float deltaTime = clock.Restart().AsSeconds();
 
-            
-
-
-            // Dikdörtgeni yukarı veya aşağı hareket ettir
             if (movingUp)
             {
                 rectangle.Position = new Vector2f(rectangle.Position.X, rectangle.Position.Y - speed * deltaTime);
-                if (rectangle.Position.Y <= 0) movingUp = false; // Üste geldiğinde aşağıya gitmeye başla
+                if (rectangle.Position.Y <= 0) movingUp = false; 
             }
             else
             {
                 rectangle.Position = new Vector2f(rectangle.Position.X, rectangle.Position.Y + speed * deltaTime);
-                if (rectangle.Position.Y >= 480 - rectangle.Size.Y) movingUp = true; // Aşağıya geldiğinde yukarıya gitmeye başla
+                if (rectangle.Position.Y >= 480 - rectangle.Size.Y) movingUp = true; 
             }
 
             base.Update();
@@ -139,27 +136,12 @@ namespace AvaloniaWithSFML.Sample.ViewModels
 
         public override void Draw()
         {
-            // Tüm şekilleri çiz
-            //foreach (var shape in shapes)
-            //{
-            //    RenderWindow.Draw(shape);
-            //}
-
-            //RenderWindow.Draw(rectangle);
-
-
-            //foreach (var shape in shapes)
-            //{
-            //    GeneralRender.Draw(shape);
-            //}
-
             GeneralRender.Draw(rectangle);
 
             if (isSelecting)
             {
                 GeneralRender.Draw(selectionRectangle);
             }
-
 
             base.Draw();
         }
