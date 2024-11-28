@@ -6,6 +6,7 @@ using Avalonia.Threading;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using SFML.Graphics;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Numerics;
 using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
@@ -13,7 +14,7 @@ using PrimitiveType = OpenTK.Graphics.OpenGL4.PrimitiveType;
 
 namespace AvaloniaWithSFML
 {
-    public class SFMLControl : OpenGlControlBase
+    public class SFMLControl : OpenGlControlBase, INotifyPropertyChanged
     {
         public static readonly DirectProperty<SFMLControl, BaseGame?> WindowProperty =
         AvaloniaProperty.RegisterDirect<SFMLControl, BaseGame?>(
@@ -23,12 +24,21 @@ namespace AvaloniaWithSFML
         private BaseGame? _window;
         private bool _isInitialized;
 
-        public int FPS { 
-            get
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public int FPS
+        {
+            get => currentFps;
+            private set
             {
-                return currentFps;
-            } 
+                if (currentFps != value)
+                {
+                    currentFps = value;
+                    OnPropertyChanged(nameof(FPS));
+                }
+            }
         }
+
 
         string vertexShaderSource = @"#version 300 es
         precision mediump float;
@@ -285,7 +295,7 @@ namespace AvaloniaWithSFML
             var now = DateTime.Now;
             if ((now - lastTime).TotalSeconds >= 1.0)
             {
-                currentFps = frameCount;
+                FPS = frameCount;
                 frameCount = 0;
                 lastTime = now;
             }
@@ -299,5 +309,8 @@ namespace AvaloniaWithSFML
                 Console.WriteLine($"OpenGL Error after {operation}: {error}");
             }
         }
+
+        protected void OnPropertyChanged(string propertyName) =>
+       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }   
 }
