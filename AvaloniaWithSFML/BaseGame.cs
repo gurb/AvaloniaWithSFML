@@ -36,7 +36,7 @@ namespace AvaloniaWithSFML
             {
                 renderWindow = new SFML.Graphics.RenderWindow(handle, new ContextSettings { AntialiasingLevel = 16 });
                 renderWindow.Size = new SFML.System.Vector2u(width, height);
-                renderWindow.SetFramerateLimit(60);
+                //renderWindow.SetFramerateLimit(60);
 
                 this.Width = width;
                 this.Height = height;

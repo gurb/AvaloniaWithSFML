@@ -6,6 +6,7 @@ using Avalonia.Threading;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using SFML.Graphics;
+using System.Diagnostics;
 using System.Numerics;
 using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
 using PrimitiveType = OpenTK.Graphics.OpenGL4.PrimitiveType;
@@ -66,6 +67,10 @@ namespace AvaloniaWithSFML
                 }
             }
         }
+
+        private DateTime lastTime = DateTime.Now;
+        private int frameCount = 0;
+        private int currentFps = 0;
         public SFMLControl()
         {
             Focusable = true;
@@ -260,7 +265,26 @@ namespace AvaloniaWithSFML
             GL.BindVertexArray(vao);
 
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
-            Dispatcher.UIThread.Post(RequestNextFrameRendering, DispatcherPriority.Background);
+
+
+            fpsCounter();
+
+            Dispatcher.UIThread.Post(RequestNextFrameRendering, DispatcherPriority.MaxValue);
+        }
+
+        private void fpsCounter()
+        {
+            frameCount++;
+            var now = DateTime.Now;
+            if ((now - lastTime).TotalSeconds >= 1.0)
+            {
+                currentFps = frameCount;
+                frameCount = 0;
+                lastTime = now;
+
+                Trace.WriteLine($"FPS: {currentFps}");
+            }
+
         }
 
         private void CheckGLError(string operation)
