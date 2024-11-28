@@ -3,6 +3,11 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<Authors>Gürbüz Uğurgül</Authors>
+		<Version>1.0.0</Version>
+		<Title>AvaloniaWithSFML</Title>
+		<PackageId>AvaloniaWithSFML</PackageId>
+		<Description>Library to provide SFMLControl for Avalonia</Description>
 	</PropertyGroup>
 	
 	<ItemGroup>

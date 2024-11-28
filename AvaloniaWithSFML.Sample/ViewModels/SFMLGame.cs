@@ -40,7 +40,7 @@ namespace AvaloniaWithSFML.Sample.ViewModels
             { 0.7f, -0.15f },
             { 0.8f, -0.10f },
             { 0.9f, -0.05f },
-            { 1.0f,  0.00f  },
+            { 1.0f,  0.00f },
             { 1.1f,  0.05f },
             { 1.2f,  0.10f },
             { 1.3f,  0.15f },
