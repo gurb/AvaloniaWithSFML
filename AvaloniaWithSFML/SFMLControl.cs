@@ -39,7 +39,6 @@ namespace AvaloniaWithSFML
             }
         }
 
-
         string vertexShaderSource = @"#version 300 es
         precision mediump float;
         layout(location = 0) in vec3 aPosition;
@@ -303,7 +302,7 @@ namespace AvaloniaWithSFML
 
         private void CheckGLError(string operation)
         {
-            ErrorCode error = GL.GetError();  // OpenGL hatasını al
+            ErrorCode error = GL.GetError();  
             if (error != ErrorCode.NoError)
             {
                 Console.WriteLine($"OpenGL Error after {operation}: {error}");
@@ -311,6 +310,6 @@ namespace AvaloniaWithSFML
         }
 
         protected void OnPropertyChanged(string propertyName) =>
-       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }   
 }
