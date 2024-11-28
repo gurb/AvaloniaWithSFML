@@ -8,7 +8,6 @@ namespace AvaloniaWithSFML
     {
         uint Width, Height;
 
-        //RenderWindow? renderWindow { get; set; }
         RenderWindow? renderWindow { get; set; }
         RenderTexture? GeneralRenderTexture { get; set; }
 
@@ -24,6 +23,7 @@ namespace AvaloniaWithSFML
         }
 
         SFML.Graphics.Color ClearColor { get; set; } = SFML.Graphics.Color.Blue;
+
         public void SetClearColor(SFML.Graphics.Color clearColor)
         {
             ClearColor = clearColor;

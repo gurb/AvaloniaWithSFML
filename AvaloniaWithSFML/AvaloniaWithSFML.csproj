@@ -8,7 +8,17 @@
 		<Title>AvaloniaWithSFML</Title>
 		<PackageId>AvaloniaWithSFML</PackageId>
 		<Description>Library to provide SFMLControl for Avalonia</Description>
+		<RepositoryUrl>https://github.com/gurb/AvaloniaWithSFML/</RepositoryUrl>
+		<PackageTags>Avalonia, SFML.NET,</PackageTags>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\LICENSE.txt">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.0.10" />
