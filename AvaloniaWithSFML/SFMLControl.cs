@@ -237,14 +237,6 @@ namespace AvaloniaWithSFML
 
             _window.OneFrame();
 
-            OpenTK.Mathematics.Vector2 position = new OpenTK.Mathematics.Vector2(400, 300);
-            OpenTK.Mathematics.Vector2 scale = new OpenTK.Mathematics.Vector2(150, 100);
-            float rotation = MathF.PI / 4f;
-            Matrix4x4 trans = Matrix4x4.CreateTranslation(position.X, position.Y, 0);
-            Matrix4x4 sca = Matrix4x4.CreateScale(scale.X, scale.Y, 1);
-            Matrix4x4 rot = Matrix4x4.CreateRotationZ(rotation);
-
-            _shader.SetMat4x4("model", sca * rot * trans);
 
             // Bind the shader
             _shader.UseProgram();

@@ -24,6 +24,16 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    public float Rotation
+    {
+        get => CurrentGame != null ? CurrentGame.Rotation : 0.0f;
+        set
+        {
+            if(CurrentGame is not null)
+                CurrentGame.Rotation = value;
+        }
+    }
+
     public void ChangeZoom()
     {
         if (CurrentGame is not null)

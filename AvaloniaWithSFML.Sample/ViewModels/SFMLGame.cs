@@ -26,7 +26,9 @@ namespace AvaloniaWithSFML.Sample.ViewModels
 
         private float _zoom;
         public float Zoom { get; set; }
-        View gameView = new View(new FloatRect(0,0,1024,720));
+        public float Rotation { get; set; }
+
+        View gameView;
 
         Dictionary<float, float> ZoomLevels = new Dictionary<float, float>
         {
@@ -53,6 +55,8 @@ namespace AvaloniaWithSFML.Sample.ViewModels
             { 2.0f,  0.50f },
         };
 
+        Random random = new Random();
+
         RectangleShape selectionRectangle = new RectangleShape
         {
             FillColor = new Color(0, 0, 255, 50),
@@ -65,7 +69,10 @@ namespace AvaloniaWithSFML.Sample.ViewModels
             rectangle.Position = new Vector2f(400, 300);
             this.Width = width;
             this.Height = height;
-            if(RenderWindow is not null)
+
+            gameView = new View(new FloatRect(0, 0, 1024, 720));
+
+            if (RenderWindow is not null)
             {
                 RenderWindow.Resized += RenderWindow_Resized;
                 RenderWindow.MouseButtonPressed += RenderWindow_MouseButtonPressed;
@@ -80,9 +87,11 @@ namespace AvaloniaWithSFML.Sample.ViewModels
 
                 RectangleShape shape = new RectangleShape(new Vector2f(S_width, S_height))
                 {
-                    FillColor = new Color((byte)new Random().Next(256), (byte)new Random().Next(256), (byte)new Random().Next(256)),
+                    FillColor = new Color((byte)new Random().Next(256), (byte)new Random().Next(256), (byte)new Random().Next(256), 100),
                     Position = new Vector2f(new Random().Next((int)width), new Random().Next((int)height))
                 };
+
+                shape.Origin = new Vector2f(shape.Size.X / 2, shape.Size.Y / 2);
 
                 shapes[i] = shape;
             }
@@ -126,8 +135,13 @@ namespace AvaloniaWithSFML.Sample.ViewModels
             GeneralRender.SetView(gameView);
             _zoom = zoom;
         }
+
         public override void Update()
         {
+            foreach (var shape in shapes)
+            {
+                shape.Rotation += Rotation; 
+            }
             if (RenderWindow is not null)
             {
                 RenderWindow.SetView(new View(new FloatRect(0, 0, Width, Height)));
