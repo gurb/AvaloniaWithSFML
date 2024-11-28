@@ -13,19 +13,15 @@
 	<Grid ColumnDefinitions="*">
 		<SFML:SFMLControl x:Name="sfmlControl" Window="{Binding CurrentGame}"></SFML:SFMLControl>
 		<DockPanel LastChildFill="True" Opacity="0.8">
-			<Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-				<TextBlock Foreground="Black">Dock = "Top"</TextBlock>
+			<Border Height="50" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+				<TextBlock Text="{Binding #sfmlControl.FPS, StringFormat='FPS: {0:F1}', Mode=OneWay}" FontSize="25" HorizontalAlignment="Left" Padding="5 5"></TextBlock>
 			</Border>
-			<Border Height="25" Background="SkyBlue" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-				<TextBlock Foreground="Black">Dock = "Top"</TextBlock>
-			</Border>
+
 			<Border Height="25" Background="LemonChiffon" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
 				<TextBlock Foreground="Black">Dock = "Bottom"</TextBlock>
 			</Border>
 			<Border Width="200" Background="PaleGreen" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" ClipToBounds="True" Padding="5">
-				
 			<StackPanel HorizontalAlignment="Stretch">
-				<TextBlock Text="{Binding #sfmlControl.FPS, StringFormat='FPS: {0:F1}', Mode=OneWay}" HorizontalAlignment="Center" Padding="5 15"></TextBlock>
 				<TextBlock Text="{Binding #zoomSlider.Value, StringFormat='Zoom Level: {0:F1}'}"
             HorizontalAlignment="Center"/>
 				<Slider HorizontalAlignment="Stretch" Maximum="2" x:Name="zoomSlider" Minimum="0" Value="{Binding Zoom, StringFormat=F1}" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
