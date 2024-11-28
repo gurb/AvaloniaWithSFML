@@ -23,6 +23,13 @@ namespace AvaloniaWithSFML
         private BaseGame? _window;
         private bool _isInitialized;
 
+        public int FPS { 
+            get
+            {
+                return currentFps;
+            } 
+        }
+
         string vertexShaderSource = @"#version 300 es
         precision mediump float;
         layout(location = 0) in vec3 aPosition;
@@ -281,10 +288,7 @@ namespace AvaloniaWithSFML
                 currentFps = frameCount;
                 frameCount = 0;
                 lastTime = now;
-
-                Trace.WriteLine($"FPS: {currentFps}");
             }
-
         }
 
         private void CheckGLError(string operation)
