@@ -1,0 +1,1 @@
+The library to integrate SFML.NET for Avalonia.
